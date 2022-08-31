@@ -5,8 +5,6 @@ import { EDITOR_JS_TOOLS } from './constants'
 const ReactEditorJS = createReactEditorJS()
 
 const Index = () => {
-  console.log(111)
-
   const editorCore = React.useRef(null)
 
   const handleInitialize = React.useCallback((instance: any) => {
@@ -14,10 +12,13 @@ const Index = () => {
   }, [])
 
   const handleSave = React.useCallback(async () => {
-    if (editorCore.current) {
-      const savedData = await editorCore.current.save()
-      console.log(savedData)
+    if (null === editorCore) {
+      throw Error('editor is null')
     }
+    if (null === editorCore.current) {
+      throw Error('editor.current is null')
+    }
+    const savedData = await editorCore.current.save()
   }, [])
 
   return (
