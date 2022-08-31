@@ -22,21 +22,21 @@ const defaultPostSelect = Prisma.validator<Prisma.PostSelect>()({
 
 export const postRouter = createRouter()
   // create
-  // .mutation('add', {
-  //   input: z.object({
-  //     // id: z.string().uuid().optional(),
-  //     title: z.string().min(1).max(32),
-  //     content: z.string().min(1),
-  //     author: 1,
-  //   }),
-  //   async resolve({ input }) {
-  //     const post = await prisma.post.create({
-  //       data: input,
-  //       select: defaultPostSelect,
-  //     });
-  //     return post;
-  //   },
-  // })
+  .mutation('add', {
+    input: z.object({
+      // id: z.string().uuid().optional(),
+      title: z.string().min(1).max(32),
+      content: z.string().min(1),
+      author: 1,
+    }),
+    async resolve({ input }) {
+      const post = await prisma.post.create({
+        data: input,
+        select: defaultPostSelect,
+      });
+      return post;
+    },
+  })
   // read
   .query('all', {
     async resolve() {
