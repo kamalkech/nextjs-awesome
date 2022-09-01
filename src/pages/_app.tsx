@@ -33,6 +33,14 @@ const MyApp = (({ Component, pageProps }: AppPropsWithLayout) => {
   return getLayout(<Component {...pageProps} />);
 }) as AppType;
 
+// const MyApp = ({ Component, pageProps }: AppProps) => {
+//   return (
+//     <SessionProvider session={pageProps.session}>
+//       <Component {...pageProps} />
+//     </SessionProvider>
+//   );
+// };
+//
 function getBaseUrl() {
   if (typeof window !== "undefined") {
     return "";

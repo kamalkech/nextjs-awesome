@@ -69,6 +69,36 @@ export const userRouter = createRouter()
     },
   })
 
+  //*ignin
+  .mutation("signin", {
+    input: z.object({
+      email: z.string(),
+      password: z.string(),
+    }),
+    resolve: async ({ input, ctx }) => {
+      const { email, password } = input;
+
+      const hashedPassword = await hash(password);
+
+      const exists = await ctx.prisma.user.findFirst({
+        where: { email, password: hashedPassword },
+      });
+
+      if (!exists) {
+        throw new TRPCError({
+          code: "CONFLICT",
+          message: "User not exists.",
+        });
+      }
+
+      return {
+        status: 201,
+        message: "Account created successfully",
+        result: exists.email,
+      };
+    },
+  })
+
   // read
   .query("all", {
     async resolve({ ctx }) {

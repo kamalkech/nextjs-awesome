@@ -29,7 +29,6 @@ export const nextAuthOptions: NextAuthOptions = {
         }
 
         const isValidPassword = await verify(user.password, creds.password);
-
         if (!isValidPassword) {
           return null;
         }
@@ -67,5 +66,6 @@ export const nextAuthOptions: NextAuthOptions = {
     signIn: "/",
     newUser: "/sign-up",
   },
+  // adapter: PrismaAdapter(prisma),
   // ...
 };
