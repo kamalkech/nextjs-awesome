@@ -1,13 +1,13 @@
 /**
  * This file contains the root router of your tRPC-backend
  */
-import { createRouter } from '../createRouter';
-import superjson from 'superjson';
-import { z } from 'zod';
+import { createRouter } from "../createRouter";
+import superjson from "superjson";
+import { z } from "zod";
 
 // import routers.
-import { postRouter } from './post';
-import { userRouter } from './user';
+import { postRouter } from "./post.router";
+import { userRouter } from "./user.router";
 
 /**
  * Create your application's root router
@@ -29,7 +29,7 @@ export const appRouter = createRouter()
   /**
    * Add a health check endpoint to be called with `/api/trpc/healthz`
    */
-  .query('hello', {
+  .query("hello", {
     input: z
       .object({
         text: z.string().nullish(),
@@ -37,14 +37,14 @@ export const appRouter = createRouter()
       .nullish(),
     resolve({ input }) {
       return {
-        greeting: `hello ${input?.text ?? 'world'}`,
+        greeting: `hello ${input?.text ?? "world"}`,
       };
     },
   })
   /**
    * Merge `postRouter` under `post.`
    */
-  .merge('post.', postRouter)
-  .merge('user.', userRouter);
+  .merge("post.", postRouter)
+  .merge("user.", userRouter);
 
 export type AppRouter = typeof appRouter;
