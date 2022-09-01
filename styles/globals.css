@@ -1,3 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.invalid-feedback.error {
+  color: #ff5c5c;
+  margin-bottom: 1rem;
+}
