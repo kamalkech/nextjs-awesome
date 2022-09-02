@@ -66,4 +66,5 @@ export const nextAuthOptions: NextAuthOptions = {
     signIn: "/",
     newUser: "/sign-up",
   },
+  secret: process.env.NEXT_PUBLIC_SECRET,
 };
