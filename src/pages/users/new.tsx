@@ -10,10 +10,13 @@ const classesSubmit =
 const New = () => {
   const utils = trpc.useContext();
   const usersQuery = trpc.useQuery(["user.all"]);
-  const mutation = trpc.useMutation("signup", {
+  const mutation = trpc.useMutation("user.signup", {
     async onSuccess() {
       // refetches posts after a post is added
       await utils.invalidateQueries(["user.all"]);
+    },
+    async onError(data) {
+      console.log("data", data);
     },
   });
 
@@ -61,7 +64,7 @@ const New = () => {
   // * Handler on submit.
   const onSubmit = async (data: IValue) => {
     if (data.valid) {
-      await mutation.mutateAsync(data);
+      await mutation.mutateAsync(data.values);
     }
   };
 
