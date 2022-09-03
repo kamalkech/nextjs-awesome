@@ -5,7 +5,18 @@ import { verify } from "argon2";
 import { loginSchema } from "./validation/auth";
 import { prisma } from "~/server/prisma";
 
+import { UpstashRedisAdapter } from "@next-auth/upstash-redis-adapter";
+import { Redis } from "@upstash/redis";
+import "dotenv/config";
+
 export const nextAuthOptions: NextAuthOptions = {
+  adapter: UpstashRedisAdapter(
+    new Redis({
+      url: process.env.UPSTASH_REDIS_URL,
+      token: process.env.UPSTASH_REDIS_TOKEN,
+    })
+    // { baseKeyPrefix: "app-specific-prefix-1:" }
+  ),
   providers: [
     Credentials({
       name: "credentials",
