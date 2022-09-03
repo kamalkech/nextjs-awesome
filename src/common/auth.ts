@@ -5,18 +5,18 @@ import { verify } from "argon2";
 import { loginSchema } from "./validation/auth";
 import { prisma } from "~/server/prisma";
 
-import { UpstashRedisAdapter } from "@next-auth/upstash-redis-adapter";
-import { Redis } from "@upstash/redis";
-import "dotenv/config";
+// import { UpstashRedisAdapter } from "@next-auth/upstash-redis-adapter";
+// import { Redis } from "@upstash/redis";
+// import "dotenv/config";
 
 export const nextAuthOptions: NextAuthOptions = {
-  adapter: UpstashRedisAdapter(
-    new Redis({
-      url: process.env.UPSTASH_REDIS_URL,
-      token: process.env.UPSTASH_REDIS_TOKEN,
-    })
-    // { baseKeyPrefix: "app-specific-prefix-1:" }
-  ),
+  // adapter: UpstashRedisAdapter(
+  //   new Redis({
+  //     url: process.env.UPSTASH_REDIS_URL,
+  //     token: process.env.UPSTASH_REDIS_TOKEN,
+  //   })
+  //   // { baseKeyPrefix: "app-specific-prefix-1:" }
+  // ),
   providers: [
     Credentials({
       name: "credentials",
@@ -51,6 +51,11 @@ export const nextAuthOptions: NextAuthOptions = {
         };
       },
     }),
+    // Github
+    // GitHubProvider({
+    //   clientId: process.env.GITHUB_ID,
+    //   clientSecret: process.env.GITHUB_SECRET,
+    // }),
   ],
   callbacks: {
     jwt: async ({ token, user }) => {
@@ -77,5 +82,5 @@ export const nextAuthOptions: NextAuthOptions = {
     signIn: "/",
     newUser: "/sign-up",
   },
-  secret: process.env.NEXT_PUBLIC_SECRET,
+  // secret: process.env.NEXT_PUBLIC_SECRET,
 };
